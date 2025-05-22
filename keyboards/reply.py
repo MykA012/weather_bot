@@ -13,7 +13,7 @@ main = ReplyKeyboardMarkup(
 
 
 provide_location = ReplyKeyboardMarkup(
-    keyboard=[[KeyboardButton(text="Поделиться городом")]],
+    keyboard=[[KeyboardButton(text="Поделиться городом", request_location=True)]],
     resize_keyboard=True,
     one_time_keyboard=True,
 )

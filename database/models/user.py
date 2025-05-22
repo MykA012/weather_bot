@@ -17,4 +17,7 @@ class User(Base):
         nullable=False,
     )
 
+    latitude: Mapped[float | None]
+    longitude: Mapped[float | None]
+
     city: Mapped[str | None]

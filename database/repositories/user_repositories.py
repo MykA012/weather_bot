@@ -1,7 +1,6 @@
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from database.models.user import User
-
 from database.repositories.base import CRUDBase
 
 
@@ -30,3 +29,13 @@ class UserRepository(CRUDBase):
             await self.commit()
             return user
         return None
+
+    async def set_location(self, telegram_id: int, latitude: float, longitude: float):
+        stmt = (
+            update(User)
+            .where(User.telegram_id==telegram_id)
+            .values(latitude=latitude, longitude=longitude)
+        )
+        result = await self.session.execute(stmt)
+        await self.commit()
+        return result.rowcount > 0
