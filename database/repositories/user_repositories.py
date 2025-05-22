@@ -17,7 +17,7 @@ class UserRepository(CRUDBase):
         first_name: str,
         username: str | None = None,
         last_name: str | None = None,
-    ) -> User:
+    ) -> User | bool:
         user = await self.get_by_telegram_id(telegram_id)
         if user:
             return False
