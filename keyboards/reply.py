@@ -6,6 +6,12 @@ main = ReplyKeyboardMarkup(
         [KeyboardButton(text="Погода сейчас")],
         [KeyboardButton(text="Погода завтра")],
         [KeyboardButton(text="Погода на неделю")],
-        [KeyboardButton(text="Сменить локацию")]
-    ]
+        [KeyboardButton(text="Сменить локацию")],
+    ],
+    resize_keyboard=True,
+)
+
+
+provide_location = ReplyKeyboardMarkup(
+    keyboard=[[KeyboardButton(text="")]], resize_keyboard=True, one_time_keyboard=True
 )

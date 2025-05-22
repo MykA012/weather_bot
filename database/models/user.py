@@ -3,7 +3,7 @@ from sqlalchemy import BigInteger, String, func
 
 from datetime import datetime
 
-from database.base import Base
+from database.models.base import Base
 
 
 class User(Base):
