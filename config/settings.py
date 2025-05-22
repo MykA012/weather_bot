@@ -2,9 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file=".env"
-    )
+    model_config = SettingsConfigDict(env_file=".env")
 
     API_TOKEN: str
 
@@ -15,9 +13,8 @@ class Settings(BaseSettings):
     DB_NAME: str
     DB_URL: str
 
-
     @property
-    def dB_url(self) -> str:
+    def db_url(self) -> str:
         return self.DB_URL.format(
             self.DB_USER,
             self.DB_PASS,
@@ -25,7 +22,6 @@ class Settings(BaseSettings):
             self.DB_PORT,
             self.DB_NAME,
         )
-    
+
+
 settings = Settings()
-
-
