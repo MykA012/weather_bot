@@ -17,17 +17,16 @@ class UserRepository(CRUDBase):
         first_name: str,
         username: str | None = None,
         last_name: str | None = None,
-    ) -> User | bool:
+    ) -> User | None:
         user = await self.get_by_telegram_id(telegram_id)
-        if user:
-            return False
-
-        user = User(
-            telegram_id=telegram_id,
-            first_name=first_name,
-            username=username,
-            last_name=last_name,
-        )
-        self.session.add(user)
-        self.commit()
-        return user
+        if not user:
+            user = User(
+                telegram_id=telegram_id,
+                first_name=first_name,
+                username=username,
+                last_name=last_name,
+            )
+            self.session.add(user)
+            await self.commit()
+            return user
+        return None
