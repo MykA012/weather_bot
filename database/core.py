@@ -1,4 +1,6 @@
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from contextlib import asynccontextmanager
+from typing import AsyncIterator
 
 from database.base import Base
 from config.settings import settings
@@ -17,3 +19,9 @@ async def init_db() -> None:
         await conn.run_sync(Base.metadata.drop_all)
         # Create TABLES
         await conn.run_sync(Base.metadata.create_all)
+
+
+@asynccontextmanager
+async def get_session() -> AsyncIterator[AsyncSession]:
+    async with async_session_maker() as session:
+        yield session
