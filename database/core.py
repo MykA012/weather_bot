@@ -12,7 +12,7 @@ async_session_maker = async_sessionmaker(bind=engine, class_=AsyncSession)
 
 
 async def init_db() -> None:
-    # import models
+    from models import user
 
     async with engine.begin() as conn:
         # Drop TABLES
