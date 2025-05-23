@@ -6,6 +6,9 @@ class Settings(BaseSettings):
 
     API_TOKEN: str
 
+    WEATHER_APIKEY: str
+    WEATHER_API_CALL: str
+
     DB_HOST: str
     DB_PORT: int
     DB_USER: str
