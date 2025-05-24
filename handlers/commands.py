@@ -7,7 +7,6 @@ from aiogram.fsm.context import FSMContext
 from keyboards import reply
 from database.session import get_user_repo
 from utils.states import UserLocationStates
-from services.sync import weather_api
 
 router = Router()
 
@@ -38,6 +37,15 @@ async def start(message: Message, state: FSMContext):
         )
 
 
+@router.message(F.text == "Сменить локацию")
+async def change_location(message: Message, state: FSMContext):
+    await state.set_state(UserLocationStates.waiting_for_loc)
+    await message.answer(
+        "Отправь своё место положение для изменения.",
+        reply_markup=reply.provide_location,
+    )
+
+
 @router.message(UserLocationStates.waiting_for_loc)
 async def handle_location(message: Message, state: FSMContext):
     async with get_user_repo() as user_repo:
@@ -59,6 +67,6 @@ async def handle_location(message: Message, state: FSMContext):
         await state.clear()
 
         await message.answer(
-            "Теперь вы можете использовать все возможности бота!",
+            "Привет! Для получения погоды используйте кнопки ниже.",
             reply_markup=reply.main,
         )
