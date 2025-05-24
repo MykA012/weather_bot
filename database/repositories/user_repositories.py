@@ -30,11 +30,17 @@ class UserRepository(CRUDBase):
             return user
         return None
 
-    async def set_location(self, telegram_id: int, latitude: float, longitude: float):
+    async def set_location(
+        self,
+        telegram_id: int,
+        city: str = None,
+        latitude: float = None,
+        longitude: float = None,
+    ):
         stmt = (
             update(User)
             .where(User.telegram_id == telegram_id)
-            .values(latitude=latitude, longitude=longitude)
+            .values(city=city, latitude=latitude, longitude=longitude)
         )
         result = await self.session.execute(stmt)
         await self.commit()
