@@ -17,5 +17,7 @@ class User(Base):
         nullable=False,
     )
 
-    latitude: Mapped[float | None]
-    longitude: Mapped[float | None]
+    latitude: Mapped[float | None] = mapped_column(default=None)
+    longitude: Mapped[float | None] = mapped_column(default=None)
+
+    city: Mapped[str | None] = mapped_column(default=None)
