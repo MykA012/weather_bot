@@ -23,7 +23,7 @@ async def weather_now(message: Message):
 
     await message.answer(
         f"""
-Прогноз на сегодня ({weather["name"]})
+{weather["icon"]} Прогноз на сегодня ({weather["name"]})
 {weather["description"]}
 Температура: {weather["temp"]}
 Ощущается как {weather["feels_like"]}"""
