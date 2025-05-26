@@ -9,12 +9,23 @@ def now(city: str = None, latitude: float = None, longitude: float = None):
         "q": city,
         "lat": latitude,
         "lon": longitude,
+        "exclude": "current",
         "appid": settings.WEATHER_APIKEY,
+        "lang": "ru",
     }
-    response = requests.get(url=settings.WEATHER_API_CALL, params=params).json()
+    response = requests.get(url="https://api.openweathermap.org/data/2.5/weather", params=params).json()
 
-    city_name = response["name"]
+    if response["cod"] != 200:
+        raise requests.HTTPError
+
+    name = response["name"]
     temp = response["main"]["temp"]
     feels_like = response["main"]["feels_like"]
+    description = response["weather"][0]["description"]
 
-    return {"city_name": city_name, "temp": temp, "feels_like": feels_like}
+    return {
+        "name": name,
+        "temp": temp,
+        "feels_like": feels_like,
+        "description": description,
+    }

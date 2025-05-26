@@ -16,7 +16,7 @@ async def start(message: Message, state: FSMContext):
     async with get_user_repo() as user_repo:
         user = await user_repo.get_by_telegram_id(message.from_user.id)
 
-        if user and (user.city or user.lat):
+        if user and (user.city or user.latitude):
             await message.answer(
                 "Привет! Для получения погоды используйте кнопки ниже.",
                 reply_markup=reply.main,

@@ -1,5 +1,6 @@
 from aiogram import Router, F
 from aiogram.types import Message
+from requests import HTTPError
 
 from services.sync import weather_api
 from database.session import get_user_repo
@@ -12,9 +13,18 @@ async def weather_now(message: Message):
     async with get_user_repo() as user_repo:
         user = await user_repo.get_by_telegram_id(message.from_user.id)
 
-    weather = weather_api.now(
-        city=user.city, latitude=user.latitude, longitude=user.longitude
-    )
+    try:
+        weather = weather_api.now(
+            city=user.city, latitude=user.latitude, longitude=user.longitude
+        )
+    except HTTPError:
+        await message.answer("Что то пошло не так (")
+        return
+
     await message.answer(
-        f"прогноз на сегодня ({weather["city_name"]})\nSMTH\nТемпература: {weather["temp"]}\nОщущается как {weather["feels_like"]}"
+        f"""
+Прогноз на сегодня ({weather["name"]})
+{weather["description"]}
+Температура: {weather["temp"]}
+Ощущается как {weather["feels_like"]}"""
     )

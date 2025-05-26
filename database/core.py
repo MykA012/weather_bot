@@ -14,6 +14,6 @@ async def init_db() -> None:
 
     async with engine.begin() as conn:
         # Drop TABLES
-        await conn.run_sync(Base.metadata.drop_all)
+        # await conn.run_sync(Base.metadata.drop_all)
         # Create TABLES
         await conn.run_sync(Base.metadata.create_all)
