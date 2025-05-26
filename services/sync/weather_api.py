@@ -4,7 +4,18 @@ from config.settings import settings
 from database.weather_ids import ids
 
 
-def now(city: str = None, latitude: float = None, longitude: float = None):
+def validate_city(city: str) -> bool:
+    params = {"q": city, "appid": settings.WEATHER_APIKEY}
+    response = requests.get(
+        url="https://api.openweathermap.org/data/2.5/weather", params=params
+    )
+
+    return response.status_code == 200
+
+
+def now(
+    city: str = None, latitude: float = None, longitude: float = None
+) -> dict[str:str]:
     params = {
         "units": "metric",
         "q": city,

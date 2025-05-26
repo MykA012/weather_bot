@@ -7,6 +7,7 @@ from aiogram.fsm.context import FSMContext
 from keyboards import reply
 from database.session import get_user_repo
 from utils.states import UserLocationStates
+from services.sync.weather_api import validate_city
 
 router = Router()
 
@@ -61,6 +62,10 @@ async def handle_location(message: Message, state: FSMContext):
 
         elif message.text:
             city = message.text.strip()
+
+            if not validate_city(city):
+                await message.answer("Такого города не существует! Попробуйте снова")
+                return
 
             await user_repo.set_location(telegram_id=message.from_user.id, city=city)
 
