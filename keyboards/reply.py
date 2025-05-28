@@ -5,8 +5,7 @@ main = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="Погода сейчас")],
         [KeyboardButton(text="Погода завтра")],
-        [KeyboardButton(text="Погода на неделю")],
-        [KeyboardButton(text="Сменить локацию"), KeyboardButton(text="Настройки")],
+        [KeyboardButton(text="Сменить локацию"), KeyboardButton(text="Уведомления")],
     ],
     resize_keyboard=True,
 )

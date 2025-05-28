@@ -36,11 +36,21 @@ class UserRepository(CRUDBase):
         city: str = None,
         latitude: float = None,
         longitude: float = None,
-    ):
+    ) -> bool:
         stmt = (
             update(User)
             .where(User.telegram_id == telegram_id)
             .values(city=city, latitude=latitude, longitude=longitude)
+        )
+        result = await self.session.execute(stmt)
+        await self.commit()
+        return result.rowcount > 0
+
+    async def notifications_change(self, telegram_id: int, status: bool) -> bool:
+        stmt = (
+            update(User)
+            .where(User.telegram_id == telegram_id)
+            .values(notifications=status)
         )
         result = await self.session.execute(stmt)
         await self.commit()

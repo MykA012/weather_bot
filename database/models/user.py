@@ -17,7 +17,8 @@ class User(Base):
         nullable=False,
     )
 
+    notifications: Mapped[bool] = mapped_column(default=True)
+
     latitude: Mapped[float | None] = mapped_column(default=None)
     longitude: Mapped[float | None] = mapped_column(default=None)
-
     city: Mapped[str | None] = mapped_column(default=None)
