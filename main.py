@@ -6,6 +6,7 @@ from aiogram import Bot, Dispatcher
 from database.core import init_db
 from config.settings import settings
 from handlers import root_router
+from services.async_.daily_messages import send_daily_messages
 
 
 async def main():
@@ -16,6 +17,7 @@ async def main():
     dp = Dispatcher()
     dp.include_router(root_router)
 
+    asyncio.create_task(send_daily_messages(bot))
     await dp.start_polling(bot)
 
 
