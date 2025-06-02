@@ -8,7 +8,7 @@ from database.session import get_user_repo
 from services.sync import weather_api
 
 
-async def send_daily_messages(bot: Bot):
+async def send_daily_messages(bot: Bot) -> None:
     target_time = time(9, 0)
     while True:
         now = datetime.now().time()
@@ -33,11 +33,10 @@ async def send_daily_messages(bot: Bot):
 Ощущается как {weather["feels_like"]}°C"""
 
                         await bot.send_message(user.telegram_id, message)
-                        logging.info(f"Message has been sended to user: id = {user.id}")
 
                     except Exception as e:
                         logging.info(
                             f"Error while senfing message user: id = {user.id}: {e}"
                         )
 
-        await asyncio.sleep(5)
+        await asyncio.sleep(30)

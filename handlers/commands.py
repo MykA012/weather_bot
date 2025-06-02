@@ -77,7 +77,7 @@ async def handle_location(message: Message, state: FSMContext):
         )
 
 
-@router.message(F.text == "Уведомления")
+@router.message(F.text == "💬 Уведомления")
 async def notifications_status(message: Message):
     async with get_user_repo() as user_repo:
         user = await user_repo.get_by_telegram_id(message.from_user.id)

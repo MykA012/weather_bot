@@ -8,7 +8,7 @@ from database.session import get_user_repo
 router = Router()
 
 
-@router.message(F.text == "Погода сейчас")
+@router.message(F.text == "🌦 Погода сейчас")
 async def weather_now(message: Message):
     async with get_user_repo() as user_repo:
         user = await user_repo.get_by_telegram_id(message.from_user.id)
@@ -30,7 +30,7 @@ async def weather_now(message: Message):
     )
 
 
-@router.message(F.text == "Погода завтра")
+@router.message(F.text == "🌤 Погода завтра")
 async def weather_tomorrow(message: Message):
     async with get_user_repo() as user_repo:
         user = await user_repo.get_by_telegram_id(message.from_user.id)

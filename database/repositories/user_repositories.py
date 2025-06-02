@@ -9,7 +9,7 @@ class UserRepository(CRUDBase):
         stmt = select(User).where(User.telegram_id == telegram_id)
         result = await self.session.execute(stmt)
         return result.scalar_one_or_none()
-    
+
     async def get_all_users(self) -> list[User] | None:
         stmt = select(User)
         result = await self.session.execute(stmt)

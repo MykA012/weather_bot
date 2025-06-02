@@ -5,10 +5,10 @@ notifications = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(
-                text="Включить", callback_data="turn_on_notifications"
+                text="✅ Включить", callback_data="turn_on_notifications"
             ),
             InlineKeyboardButton(
-                text="Выключить", callback_data="turn_off_notifications"
+                text="❌ Выключить", callback_data="turn_off_notifications"
             ),
         ]
     ]
